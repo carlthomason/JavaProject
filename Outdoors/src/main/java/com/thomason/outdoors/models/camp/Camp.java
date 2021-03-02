@@ -72,7 +72,7 @@ public class Camp {
     
     @ManyToMany
     @JoinTable(
-            name = "hunt_messages", 
+            name = "camp_messages", 
             joinColumns = @JoinColumn(name = "camp_id"), 
             inverseJoinColumns = @JoinColumn(name = "user_id")
         ) 
