@@ -23,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.thomason.outdoors.models.User;
 
+
 @Entity
 @Table(name="camps")
 public class Camp {
@@ -67,9 +68,11 @@ public class Camp {
     @JoinColumn(name = "user_id")
     private User user;
     
+ 
+    
     @ManyToMany
     @JoinTable(
-            name = "camp_messages", 
+            name = "hunt_messages", 
             joinColumns = @JoinColumn(name = "camp_id"), 
             inverseJoinColumns = @JoinColumn(name = "user_id")
         ) 
@@ -82,8 +85,11 @@ public class Camp {
     public Camp() {
     }
   
-    
-    public Camp(@Size(min = 2, message = "Camp name must be present and at least 2 characters") String campName,
+
+
+
+	
+	public Camp(@Size(min = 2, message = "Camp name must be present and at least 2 characters") String campName,
 			String city, String state, @Size(min = 2, message = "Features must be present") String features,
 			@NotNull @Size(message = "Price") Double price, User user, List<User> userm) {
 		this.campName = campName;
@@ -95,8 +101,9 @@ public class Camp {
 		this.userm = userm;
 	}
 
-
+	
 	//Getters and Setters
+	
 	public Long getId() {
 		return id;
 	}
@@ -113,36 +120,21 @@ public class Camp {
 		this.campName = campName;
 	}
 
-
-	public Double getPrice() {
-		return price;
+	public String getCity() {
+		return city;
 	}
 
-
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-
-	public User getUser() {
-		return user;
+	public String getState() {
+		return state;
 	}
 
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setState(String state) {
+		this.state = state;
 	}
-
-
-	public List<User> getUserm() {
-		return userm;
-	}
-
-
-	public void setUserm(List<User> userm) {
-		this.userm = userm;
-	}
-
 
 	public String getFeatures() {
 		return features;
@@ -150,6 +142,14 @@ public class Camp {
 
 	public void setFeatures(String features) {
 		this.features = features;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public Date getCreatedAt() {
@@ -167,18 +167,26 @@ public class Camp {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<User> getUserm() {
+		return userm;
+	}
+
+	public void setUserm(List<User> userm) {
+		this.userm = userm;
+	}
+
 	
 
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
+	
+	
 }

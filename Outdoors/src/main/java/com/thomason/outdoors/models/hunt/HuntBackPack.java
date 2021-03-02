@@ -58,7 +58,7 @@ public class HuntBackPack {
     private User user;
 	
 	
-	//Contructors
+	//Constructors
 	public HuntBackPack() {
 		
 	}

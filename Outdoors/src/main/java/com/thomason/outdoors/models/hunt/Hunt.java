@@ -24,6 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.thomason.outdoors.models.User;
 
 
+
 @Entity
 @Table(name="hunts")
 public class Hunt {
@@ -89,6 +90,10 @@ public class Hunt {
     	
     }
 
+
+
+
+
 	public Hunt(@Size(min = 2, message = "Camp name must be present and at least 2 characters") String huntSite,
 			@NotNull @Size(message = "please give a location") String city,
 			@Size(message = "many states have same city") String state,
@@ -103,6 +108,9 @@ public class Hunt {
 		this.userm = userm;
 	}
 
+	
+	//Getters and Setters
+	
 	public Long getId() {
 		return id;
 	}
@@ -182,5 +190,10 @@ public class Hunt {
 	public void setUserm(List<User> userm) {
 		this.userm = userm;
 	}
+
+	
+	
+	
+	
 
 }

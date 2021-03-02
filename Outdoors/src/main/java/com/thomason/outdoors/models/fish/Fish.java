@@ -23,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.thomason.outdoors.models.User;
 
+
 @Entity
 @Table(name="fishes")
 public class Fish {
@@ -78,6 +79,8 @@ public class Fish {
     @JoinColumn(name = "user_id")
     private User user;
     
+  
+
     @ManyToMany
     @JoinTable(
             name = "fish_messages", 
@@ -85,28 +88,28 @@ public class Fish {
             inverseJoinColumns = @JoinColumn(name = "user_id")
         ) 
     private List<User> userm;
-  
-
-
 
 	
 	public Fish() {
 		
 	}
 
+
+
 	public Fish(@NotNull @Size(message = "Body of water needed to fish") String fishSite,
-			@NotNull @Size(message = "please give a location") String city,
-			@Size(message = "many states have same city") String state,
-			@NotNull @Size(message = "Best guess and species required") String species_population,
-			@Size(message = "Show us what ya got") String personal_best, User user, List<User> userm) {
-		this.fishSite = fishSite;
-		this.city = city;
-		this.state = state;
-		this.species_population = species_population;
-		this.personal_best = personal_best;
-		this.user = user;
-		this.userm = userm;
-	}
+		@NotNull @Size(message = "please give a location") String city,
+		@Size(message = "many states have same city") String state,
+		@NotNull @Size(message = "Best guess and species required") String species_population,
+		@Size(message = "Show us what ya got") String personal_best, User user, List<User> userm) {
+
+	this.fishSite = fishSite;
+	this.city = city;
+	this.state = state;
+	this.species_population = species_population;
+	this.personal_best = personal_best;
+	this.user = user;
+	this.userm = userm;
+}
 
 	public Long getId() {
 		return id;
@@ -187,7 +190,9 @@ public class Fish {
 	public void setUserm(List<User> userm) {
 		this.userm = userm;
 	}
+
 	
+
 	
 	
 	
