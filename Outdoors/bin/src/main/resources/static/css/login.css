@@ -1,0 +1,16 @@
+ body{
+  background-image: url("/images/fishing2.jpg");
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: 100% 50%;
+   background-size: cover;
+}
+
+#hunt {
+   background-image: url("/images/buck.jpg");
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: 50% 50%;
+ 
+}
+

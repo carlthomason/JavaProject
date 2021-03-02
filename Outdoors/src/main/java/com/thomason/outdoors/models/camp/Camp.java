@@ -1,21 +1,30 @@
 package com.thomason.outdoors.models.camp;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.thomason.outdoors.models.User;
+
 @Entity
-@Table(name="campers")
+@Table(name="camps")
 public class Camp {
 	// Variables
     @Id
@@ -24,36 +33,70 @@ public class Camp {
     
     @Size(min=2, message="Camp name must be present and at least 2 characters")
     private String campName;
-    
-    @Size(min=2, message="Location must be present and at least 2 characters")
-    private String lastName;
+    private String city;
+    private String state;
     
     @Size(min=2, message="Features must be present")
     private String features;
     
-    //@Size(min=2, message="Price")
-   // private String price;
-   
+    @NotNull
+    @Size (message="Price")
+    private Double price;
+    
     @Column(updatable=false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
     
-    // Create a One to Many - user can create many tasks
-   // @OneToMany(mappedBy="creator", fetch=FetchType.LAZY)
-    //private List<Task> tasks;
+
+	@PrePersist
+	protected void onCreate(){
+		this.createdAt = new Date();
+	}
+	
+	@PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
     
- // Create a One to Many - user(assignee) can have many tasks
-    //@OneToMany(mappedBy="assignee", fetch=FetchType.LAZY)
-   // private List<Task> assigned_tasks;
+	//Relationships
+	
+	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
     
+    @ManyToMany
+    @JoinTable(
+            name = "camp_messages", 
+            joinColumns = @JoinColumn(name = "camp_id"), 
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+        ) 
+    private List<User> userm;
+    
+  
+
     
     // Constructors
     public Camp() {
     }
+  
     
-    //Getters and Setters
+    public Camp(@Size(min = 2, message = "Camp name must be present and at least 2 characters") String campName,
+			String city, String state, @Size(min = 2, message = "Features must be present") String features,
+			@NotNull @Size(message = "Price") Double price, User user, List<User> userm) {
+		this.campName = campName;
+		this.city = city;
+		this.state = state;
+		this.features = features;
+		this.price = price;
+		this.user = user;
+		this.userm = userm;
+	}
+
+
+	//Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -70,13 +113,36 @@ public class Camp {
 		this.campName = campName;
 	}
 
-	public String getLastName() {
-		return lastName;
+
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public List<User> getUserm() {
+		return userm;
+	}
+
+
+	public void setUserm(List<User> userm) {
+		this.userm = userm;
+	}
+
 
 	public String getFeatures() {
 		return features;
@@ -102,13 +168,17 @@ public class Camp {
 		this.updatedAt = updatedAt;
 	}
 	
-	@PrePersist
-	protected void onCreate(){
-		this.createdAt = new Date();
+
+	public String getCity() {
+		return city;
 	}
-	
-	@PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 }

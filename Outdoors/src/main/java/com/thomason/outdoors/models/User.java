@@ -1,12 +1,20 @@
 package com.thomason.outdoors.models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -15,6 +23,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.thomason.outdoors.models.camp.Camp;
+import com.thomason.outdoors.models.fish.Fish;
+import com.thomason.outdoors.models.hunt.Hunt;
 
 @Entity
 @Table(name="users")
@@ -45,19 +57,73 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
     
-    // Create a One to Many - user can create many tasks
-   // @OneToMany(mappedBy="creator", fetch=FetchType.LAZY)
-    //private List<Task> tasks;
     
- // Create a One to Many - user(assignee) can have many tasks
-    //@OneToMany(mappedBy="assignee", fetch=FetchType.LAZY)
-   // private List<Task> assigned_tasks;
+	@PrePersist
+	protected void onCreate(){
+	    this.createdAt = new Date();
+	}
+	
+	@PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+    
+    
+    
+    //Relationships
+    
+    
+    @OneToMany(mappedBy = "camp", fetch = FetchType.LAZY)
+    private List<Camp> camp;
+    
+    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
+    private List<Fish> fish;
+    
+    @OneToMany(mappedBy = "hunt", fetch = FetchType.LAZY)
+    private List<Hunt> hunt;
+    
+    
+    @ManyToMany
+    @JoinTable(
+            name = "fish_messages", 
+            joinColumns = @JoinColumn(name = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "fish_id")
+        ) 
+    private List<Fish> fishm;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "hunt_messages", 
+            joinColumns = @JoinColumn(name = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "hunt_id")
+        ) 
+    private List<Hunt> huntm;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "camp_messages" ,
+            joinColumns = @JoinColumn(name = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "camp_id")
+        ) 
+    private List<Camp> campm;
+    
+    @OneToOne(mappedBy="camp_backpack", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Camp campb;
+    
+    @OneToOne(mappedBy="hunt_backpack", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Hunt huntb;
+    
+    @OneToOne(mappedBy="fish_tacklebox", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Fish fisht;
+    
     
     
     // Constructors
     public User() {
     }
 
+    
+    
     //Getters and Setters
 	public Long getId() {
 		return id;
@@ -123,14 +189,6 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 	
-	@PrePersist
-	protected void onCreate(){
-	    this.createdAt = new Date();
-	}
-	
-	@PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
+
 }
 
