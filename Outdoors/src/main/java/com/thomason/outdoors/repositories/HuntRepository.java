@@ -9,11 +9,7 @@ import com.thomason.outdoors.models.hunt.Hunt;
 
 @Repository
 public interface HuntRepository extends CrudRepository<Hunt, Long> {
-<<<<<<< HEAD
+
 	List<Hunt> findAll();	
 	List<Hunt> findByNameContaining();
-=======
-    
-    List<Hunt> findByNameContaining();
->>>>>>> branch 'main' of https://github.com/carlthomason/JavaProject
 }

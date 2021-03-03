@@ -19,7 +19,7 @@
 	
 <div id = "hunt">
 	<img src="<c:url value="${images/buck.img}"/>"/>
-	<th><a href="/Hunt/home">Hunting</a></th>	
+	<p><a href="/Hunt/home">Hunting</a></p>	
 </div>
 	<table class="table table-hover">
 		<thead class="thead-dark">
