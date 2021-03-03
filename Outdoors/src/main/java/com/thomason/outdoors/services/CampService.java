@@ -16,12 +16,12 @@ public class CampService {
         this.campRepository = campRepository;
     }
 
-    // get all tasks 
+    // get all camp 
         public List<Camp> getAll() {
             return (List<Camp>) campRepository.findAll();
         }
 
-        // find a task by id
+        // find a camp by id
         public Camp findCamp(Long id) {
             Optional<Camp> mycamp = campRepository.findById(id);
             if (mycamp.isPresent()) {
@@ -30,17 +30,17 @@ public class CampService {
                 return null;
             }
         }
-        // create a task
+        // create a camp
         public Camp createCamp(Camp myCamp) {
             return campRepository.save(myCamp);
         }
 
-        // Update task
+        // Update camp
         public void updateCamp(Camp myCamp) {
             campRepository.save(myCamp);
         }
 
-        // Delete task
+        // Delete camp
         public void deleteCamp(Long myId) {
             campRepository.deleteById(myId);
         }

@@ -16,12 +16,12 @@ public class FishService {
         this.fishRepository = fishRepository;
     }
 
-    // get all tasks 
+    // get all Fish 
         public List<Fish> getAll() {
             return (List<Fish>) fishRepository.findAll();
         }
 
-        // find a task by id
+        // find a fish by id
         public Fish findFish(Long id) {
             Optional<Fish> myfish = fishRepository.findById(id);
             if (myfish.isPresent()) {
@@ -30,17 +30,17 @@ public class FishService {
                 return null;
             }
         }
-        // create a task
+        // create a fish
         public Fish createFish(Fish myFish) {
             return fishRepository.save(myFish);
         }
 
-        // Update task
+        // Update fish
         public void updateFish(Fish myFish) {
             fishRepository.save(myFish);
         }
 
-        // Delete task
+        // Delete fish
         public void deleteFish(Long myId) {
             fishRepository.deleteById(myId);
         }

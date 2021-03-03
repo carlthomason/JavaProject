@@ -16,12 +16,12 @@ public class HuntService {
         this.huntRepository = huntRepository;
     }
 
-    // get all tasks 
+    // get all Hunting Spot
         public List<Hunt> getAll() {
             return (List<Hunt>) huntRepository.findAll();
         }
 
-        // find a task by id
+        // find a Hunting spot by id
         public Hunt findHunt(Long id) {
             Optional<Hunt> myhunt = huntRepository.findById(id);
             if (myhunt.isPresent()) {
@@ -30,17 +30,17 @@ public class HuntService {
                 return null;
             }
         }
-        // create a task
+        // create a Hunting Spots
         public Hunt createHunt(Hunt myHunt) {
             return huntRepository.save(myHunt);
         }
 
-        // Update task
+        // Update Hunting Spots
         public void updateHunt(Hunt myHunt) {
             huntRepository.save(myHunt);
         }
 
-        // Delete task
+        // Delete Hunting Spots
         public void deleteHunt(Long myId) {
             huntRepository.deleteById(myId);
         }
