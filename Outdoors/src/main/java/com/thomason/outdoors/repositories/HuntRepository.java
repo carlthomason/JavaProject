@@ -1,5 +1,14 @@
 package com.thomason.outdoors.repositories;
 
-public interface HuntRepository {
+import java.util.List;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.thomason.outdoors.models.hunt.Hunt;
+
+@Repository
+public interface HuntRepository extends CrudRepository<Hunt, Long> {
+    
+    List<Hunt> findByNameContaining();
 }
