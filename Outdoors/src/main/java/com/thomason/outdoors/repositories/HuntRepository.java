@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.thomason.outdoors.models.hunt.Hunt;
+import com.thomason.outdoors.models.Hunt;
 
 @Repository
 public interface HuntRepository extends CrudRepository<Hunt, Long> {

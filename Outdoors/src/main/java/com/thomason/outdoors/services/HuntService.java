@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.thomason.outdoors.models.hunt.Hunt;
+import com.thomason.outdoors.models.Hunt;
 import com.thomason.outdoors.repositories.HuntRepository;
 
 @Service
@@ -22,8 +22,8 @@ public class HuntService {
         }
 
         // find a Hunting spot by id
-        public Hunt findHunt(Long id) {
-            Optional<Hunt> myhunt = huntRepository.findById(id);
+        public Hunt findHunt(Long huntId) {
+            Optional<Hunt> myhunt = huntRepository.findById(huntId);
             if (myhunt.isPresent()) {
                 return myhunt.get();
             }else {

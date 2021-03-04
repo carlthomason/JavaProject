@@ -1,4 +1,4 @@
-package com.thomason.outdoors.models.camp;
+package com.thomason.outdoors.models;
 
 import java.util.Date;
 
@@ -18,13 +18,13 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.thomason.outdoors.models.User;
-
 @Entity
-@Table(name="camp_backpack")
-public class CampBackPack {
+@Table(name="fish_tacklebox")
+public class FishTacklebox {
+
 	
 	//Variables
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -52,26 +52,20 @@ public class CampBackPack {
 	
 	//Relationships
 	
-    @OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
+	
+	//Constructors
+	
+	public FishTacklebox() {
+		
+	}
 
-
-    
-    
-    
-    
-    //Constructors
-    public CampBackPack() {
-    	
-    }
-    
-	public CampBackPack(@NotNull @Size(message = "must have something in your backPack") String contents, User user) {
+	public FishTacklebox(@NotNull @Size(message = "must have something in your backPack") String contents, User user) {
 		this.contents = contents;
 		this.user = user;
 	}
-	
-	//Getters and Setters
 
 	public Long getId() {
 		return id;
@@ -112,6 +106,5 @@ public class CampBackPack {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 	
 }

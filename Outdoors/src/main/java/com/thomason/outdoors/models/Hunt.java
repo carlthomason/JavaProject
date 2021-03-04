@@ -1,4 +1,4 @@
-package com.thomason.outdoors.models.hunt;
+package com.thomason.outdoors.models;
 
 import java.util.Date;
 import java.util.List;
@@ -20,8 +20,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.thomason.outdoors.models.User;
 
 
 

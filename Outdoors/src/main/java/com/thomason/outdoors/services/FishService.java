@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.thomason.outdoors.models.fish.Fish;
+import com.thomason.outdoors.models.Fish;
 import com.thomason.outdoors.repositories.FishRepository;
 
 @Service
@@ -23,9 +23,9 @@ public class FishService {
 
         // find a fish by id
         public Fish findFish(Long id) {
-            Optional<Fish> myfish = fishRepository.findById(id);
-            if (myfish.isPresent()) {
-                return myfish.get();
+            Optional<Fish> myFish = fishRepository.findById(id);
+            if (myFish.isPresent()) {
+                return myFish.get();
             }else {
                 return null;
             }

@@ -22,13 +22,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.thomason.outdoors.models.camp.Camp;
-import com.thomason.outdoors.models.camp.CampBackPack;
-import com.thomason.outdoors.models.fish.Fish;
-import com.thomason.outdoors.models.fish.FishTacklebox;
-import com.thomason.outdoors.models.hunt.Hunt;
-import com.thomason.outdoors.models.hunt.HuntBackPack;
-
 @Entity
 @Table(name="users")
 public class User {
@@ -58,13 +51,13 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
     
-    @OneToMany(mappedBy = "camp", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Camp> camp;
     
-    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Fish> fish;
     
-    @OneToMany(mappedBy = "hunt", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Hunt> hunt;
     
     

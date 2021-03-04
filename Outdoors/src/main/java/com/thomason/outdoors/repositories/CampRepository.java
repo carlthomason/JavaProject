@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import org.springframework.stereotype.Repository;
 
-import com.thomason.outdoors.models.camp.Camp;
+import com.thomason.outdoors.models.Camp;
 
 
 @Repository

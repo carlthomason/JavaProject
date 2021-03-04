@@ -1,4 +1,4 @@
-package com.thomason.outdoors.models.camp;
+package com.thomason.outdoors.models;
 
 import java.util.Date;
 
@@ -18,14 +18,13 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.thomason.outdoors.models.User;
+
 
 @Entity
-@Table(name="camp_messages")
-public class CampMessage {
-
-	//Variables
+@Table(name="hunt_messages")
+public class HuntMessage {
 	
+	//Variables
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -52,58 +51,21 @@ public class CampMessage {
     }
 	
 	//Relationships
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="camp_id")
-	private Camp camp;
+	@JoinColumn(name="hunt_id")
+	private Hunt hunt;
 	
-	//constructors
+	//Constructors
 	
-	public CampMessage(){
+	public HuntMessage() {
 		
-	}
-
-	public CampMessage(@NotNull @Size(message = "Let's talk") String comments) {
-		this.comments = comments;
 	}
 	
 	//Getters and Setters
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
-	
-	
 }

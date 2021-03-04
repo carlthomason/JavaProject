@@ -1,4 +1,4 @@
-package com.thomason.outdoors.models.hunt;
+package com.thomason.outdoors.models;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -18,21 +18,19 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.thomason.outdoors.models.User;
-
 @Entity
-@Table(name="hunt_backpack")
-public class HuntBackPack {
+@Table(name="camp_messages")
+public class CampMessage {
 
+	//Variables
 	
-	// Variables
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 	@NotNull
-	@Size(message="must have something in your backPack")
-	private String contents;
+	@Size(message="Let's talk")
+	private String comments;
 	
     @Column(updatable=false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -52,20 +50,22 @@ public class HuntBackPack {
     }
 	
 	//Relationships
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User user;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="camp_id")
+	private Camp camp;
 	
+	//constructors
 	
-	//Constructors
-	public HuntBackPack() {
+	public CampMessage(){
 		
 	}
 
-	public HuntBackPack(@NotNull @Size(message = "must have something in your backPack") String contents, User user) {
-		this.contents = contents;
-		this.user = user;
+	public CampMessage(@NotNull @Size(message = "Let's talk") String comments) {
+		this.comments = comments;
 	}
 	
 	//Getters and Setters
@@ -78,12 +78,12 @@ public class HuntBackPack {
 		this.id = id;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getComments() {
+		return comments;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	public Date getCreatedAt() {
@@ -101,18 +101,6 @@ public class HuntBackPack {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	
-	
-	
 	
 	
 	

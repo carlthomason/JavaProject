@@ -5,16 +5,20 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.thomason.outdoors.models.camp.Camp;
+import com.thomason.outdoors.models.Camp;
+import com.thomason.outdoors.models.CampMessage;
+import com.thomason.outdoors.repositories.CampMessageRepository;
 import com.thomason.outdoors.repositories.CampRepository;
 
 @Service
 public class CampService {
 
     private final CampRepository campRepository;
+    private final CampMessageRepository campMessageRepository;
 
-    public CampService(CampRepository campRepository) {
+    public CampService(CampRepository campRepository, CampMessageRepository campMessageRepository){
         this.campRepository = campRepository;
+        this.campMessageRepository= campMessageRepository;
     }
 
     // get all camp 
@@ -45,7 +49,18 @@ public class CampService {
         public void deleteCamp(Long myId) {
             campRepository.deleteById(myId);
         }
+        
+        
+        // show messages on main camp page
+        
+        public CampMessage showMessage(CampMessage comments) {
+        	return(CampMessage) campMessageRepository.findAll();
+        }
+        //add message to camp message board
+        
+        public CampMessage addMessage(CampMessage comments) {
+        	return campMessageRepository.save(comments);
+        }
 }
-
 	
 
