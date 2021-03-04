@@ -10,11 +10,37 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Show Hunting Location Information</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
+    <h1>Hunting site: <c:out value="${hunt.huntSite}"/></h1>
+    <table>
+        <tr>
+            <td>Location:</td>
+            <td>${hunt.city}, ${hunt.state}</td>
+        </tr>
+        <tr>
+            <td>Species Population:</td>
+            <td>${hunt.species_population}</td>
+        </tr>
+        <tr>
+            <td>Personal Best:</td>
+            <td>${hunt.personal_best}</td>
+        </tr>
 
+
+        <c:if test="${hunt.user.getId()==userId}">
+            <tr>
+                <td><a class="button" href="/hunt/${id}/edit">Edit a Hunting Site</a>
+                <form action="/hunt/${id}/delete" method="post" class="d-inline-block">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="submit" class="redbtn" value="Delete a Hunting Site">
+                </form>
+                </td>
+            </tr>
+        </c:if>
+    </table>
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thomason.outdoors.models.Camp;
+import com.thomason.outdoors.models.Comment;
 import com.thomason.outdoors.models.Fish;
 import com.thomason.outdoors.models.Hunt;
 import com.thomason.outdoors.models.User;
 import com.thomason.outdoors.services.CampService;
+import com.thomason.outdoors.services.CommentService;
 import com.thomason.outdoors.services.FishService;
 import com.thomason.outdoors.services.HuntService;
 import com.thomason.outdoors.services.UserService;
@@ -34,14 +37,16 @@ public class MainController {
 	private final CampService campService;
 	private final FishService fishService;
 	private final HuntService huntService;
+	private final CommentService commentService;
 	private final UserValidator userValidator;
 	
-	public MainController(UserService userService, UserValidator userValidator, CampService campService, FishService fishService, HuntService huntService){
+	public MainController(UserService userService, UserValidator userValidator, CampService campService, FishService fishService, HuntService huntService, CommentService commentService){
 		this.userService = userService;
 		this.userValidator = userValidator;
 		this.campService = campService;
 		this.fishService = fishService;
 		this.huntService = huntService;
+		this.commentService = commentService;
 	}
 //=========================================================================================//	
 	// Registration and Login Page
@@ -89,19 +94,22 @@ public class MainController {
 		return "redirect:/";
     }
        
-  @RequestMapping("/outdoors")
-	public String homepage(HttpSession session, Model model) {
-		// if current user is in session then proceed(if not redirect)
-		if (session.getAttribute("userId") != null) {
-			// get user from session, return the home page
-			Long userId = (Long) session.getAttribute("userId");
-			User u = userService.findUserById(userId);
-			model.addAttribute("user", u);
-			return "main.jsp";
-		} else {
-			return "redirect:/";
-		}
-	}
+    @RequestMapping("/outdoors")
+    public String homepage(@ModelAttribute("newMessage") Comment newMessage, @ModelAttribute("user") User user, HttpSession session, Model model) {
+        // if current user is in session then proceed(if not redirect)
+        if (session.getAttribute("userId") != null) {
+            // get user from session, return the home page
+            Long userId = (Long) session.getAttribute("userId");
+            User u = userService.findUserById(userId);
+            model.addAttribute("user", u);
+            System.out.println("This is the user comments "+ newMessage);
+            List<Comment> commentlist = commentService.allComment();
+            model.addAttribute("commentlist", commentlist);
+            return "main.jsp";
+        } else {
+            return "redirect:/";
+        }
+    }
 //========================================================================================//
   // Camp Home
   @RequestMapping("/camphome")
@@ -355,12 +363,14 @@ public class MainController {
 					model.addAttribute("user", u);
 
 					List<Fish> fishList = fishService.getAll();
-					model.addAttribute("fish", fishList);
+					model.addAttribute("fishes", fishList);
 					return "fishHome.jsp";
 				} else {
 					return "redirect:/outdoors";
 				}
-			}
+			}	  
+		  
+		  
 		  
 		// Fish create page
 			@RequestMapping("/fish")
@@ -462,6 +472,15 @@ public class MainController {
 				} else {
 					return "redirect:/fishHome";
 				}
+			}
+			
+//==========================================================================================//
+			@PostMapping("/newMessage")
+		    public String addMessage(@Valid @ModelAttribute("newMessage") Comment newMessage, BindingResult result, Model model, HttpSession session) {
+		        User user = userService.findUserById((Long) session.getAttribute("userId"));
+		        model.addAttribute("user", user);
+		        commentService.createComment(newMessage);
+		        return "redirect:/outdoors";
 			}
 }
 

@@ -15,9 +15,14 @@
 integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
- <h1> Welcome, <c:out value="${user.name}" /></h1>
-	<a href="/logout">Logout</a>
-	
+
+<div class="d-flex bd-highlight">
+          <div class="p-2 flex-grow-1 bd-highlight"><h1> Welcome, <c:out value="${user.firstName}" /></h1></div>
+          <div class="p-2 bd-highlight"><a href="/outdoors">Main Page</a></div>
+          <div class="p-2 bd-highlight"><a href="/fishHome">Fish Home</a></div>
+           <div class="p-2 bd-highlight"><a href="/huntHome">Hunt Home</a></div>
+          <div class="p-2 bd-highlight"><a href="/logout">Logout</a></div>
+    </div>
 	<table class="table table-hover">
 		<thead class="thead-dark">
 			<tr>
@@ -37,6 +42,9 @@ integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolfl
 					</a>
 					</td>
 					<td><c:out value="${camp.city}"/></td>
+					<td><c:out value="${camp.state}"/></td>
+					<td><c:out value="${camp.features}"/></td>
+					<td><c:out value="${camp.price}"/></td>
 					
 					
 				</tr>
@@ -44,6 +52,6 @@ integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolfl
 		</tbody>
 	</table>
 	
-	<a href="/camp/new">Create a task</a>
+	<a href="/camps">Create a Camp Site</a>
 </body>
 </html>

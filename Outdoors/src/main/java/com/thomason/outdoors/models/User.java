@@ -10,9 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -60,30 +57,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Hunt> hunt;
     
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+    private List<Comment> comments;
     
-    @ManyToMany
-    @JoinTable(
-            name = "fish_messages", 
-            joinColumns = @JoinColumn(name = "user_id"), 
-            inverseJoinColumns = @JoinColumn(name = "fish_id")
-        ) 
-    private List<Fish> fishm;
-    
-    @ManyToMany
-    @JoinTable(
-            name = "hunt_messages", 
-            joinColumns = @JoinColumn(name = "user_id"), 
-            inverseJoinColumns = @JoinColumn(name = "hunt_id")
-        ) 
-    private List<Hunt> huntm;
-    
-    @ManyToMany
-    @JoinTable(
-            name = "camp_messages" ,
-            joinColumns = @JoinColumn(name = "user_id"), 
-            inverseJoinColumns = @JoinColumn(name = "camp_id")
-        ) 
-    private List<Camp> campm;
     
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private CampBackPack campBackPack;
@@ -103,20 +79,17 @@ public class User {
 			@Size(min = 2, message = "Last name must be present and at least 2 characters") String lastName,
 			@Email(message = "Email must be present and valid format") String email,
 			@Size(min = 8, message = "Password must be greater than 8 characters") String password,
-			String passwordConfirmation, List<Camp> camp, List<Fish> fish, List<Hunt> hunt, List<Fish> fishm,
-			List<Hunt> huntm, List<Camp> campm, CampBackPack campBackPack, HuntBackPack huntBackPack,
-			FishTacklebox fishTacklbox) {
+			String passwordConfirmation, List<Camp> camp, List<Fish> fish, List<Hunt> hunt, CampBackPack campBackPack, HuntBackPack huntBackPack,
+			FishTacklebox fishTacklbox, List<Comment> comments) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.passwordConfirmation = passwordConfirmation;
+		this.comments = comments;
 		this.camp = camp;
 		this.fish = fish;
 		this.hunt = hunt;
-		this.fishm = fishm;
-		this.huntm = huntm;
-		this.campm = campm;
 		this.campBackPack = campBackPack;
 		this.huntBackPack = huntBackPack;
 		this.fishTacklbox = fishTacklbox;
@@ -127,6 +100,16 @@ public class User {
   //Getters and Setters
     
     
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -234,36 +217,6 @@ public class User {
 
 	public void setHunt(List<Hunt> hunt) {
 		this.hunt = hunt;
-	}
-
-
-	public List<Fish> getFishm() {
-		return fishm;
-	}
-
-
-	public void setFishm(List<Fish> fishm) {
-		this.fishm = fishm;
-	}
-
-
-	public List<Hunt> getHuntm() {
-		return huntm;
-	}
-
-
-	public void setHuntm(List<Hunt> huntm) {
-		this.huntm = huntm;
-	}
-
-
-	public List<Camp> getCampm() {
-		return campm;
-	}
-
-
-	public void setCampm(List<Camp> campm) {
-		this.campm = campm;
 	}
 
 

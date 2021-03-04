@@ -10,49 +10,45 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Show Camp Information</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
-<body>
- <body>
-	
-	<h1>Task: <c:out value="${task.taskName}" /></h1>
-	
-	<table>
-		<tr>
-			<td>Creator:</td>
-			<td>${task.creator.getName()}</td>
-		</tr>
-		<tr>
-			<td class="subtitle">Assignee:</td>
-			<td class="subtitle">${task.assignee.getName()}</td>
-		</tr>
-		<tr>
-			<td>Priority:</td>
-				<c:if test="${task.priority==1}">
-					<td class="subtitle">Low</td>
-				</c:if>
-				<c:if test="${task.priority==2}">
-					<td class="subtitle">Medium</td>
-				</c:if>
-				<c:if test="${task.priority==3}">
-					<td class="subtitle">High</td>
-				</c:if>
-		</tr>	
-						
-		<c:if test="${task.creator.getId()==currentUserId}">
-			<tr>
-				<td><a class="button" href="/tasks/${task.id}/edit">Edit</a></td>
-				<td><a class="button" href="/tasks/${task.id}/delete">Delete</a></td>
-			</tr>
-		</c:if>
-	</table>
-					
-	<c:if test="${task.assignee.getId()==currentUserId}">
-		<a href="/tasks/${task.id}/delete" class="button">Completed</a>
-	</c:if>
-				 
-</body>
+<body class = "p-3">
+    <div class="d-flex bd-highlight">
+          <div class="p-2 flex-grow-1 bd-highlight"><h1> Welcome to Camp Details</h1></div>
+          <div class="p-2 bd-highlight"><a href="/outdoors">Main Page</a></div>
+          <div class="p-2 bd-highlight"><a href="/camphome">Camp Home</a></div>
+          <div class="p-2 bd-highlight"><a href="/logout">Logout</a></div>
+    </div>
+
+    <h1>Camp: <c:out value="${camp.campName}" /></h1>
+
+    <table>
+        <tr>
+            <td>Location:</td>
+            <td>${camp.city}, ${camp.state}</td>
+        </tr>
+        <tr>
+            <td>Features:</td>
+            <td>${camp.features}</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>${camp.price}</td>
+        </tr>
+
+
+        <c:if test="${camp.user.getId()==userId}">
+            <tr>
+                <td><a class="button" href="/camp/${id}/edit">Edit a Camp</a>
+                <form action="/camp/${id}/delete" method="post" class="d-inline-block">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="submit" class="redbtn" value="Delete a Camp">
+                </form>
+                </td>
+            </tr>
+        </c:if>
+    </table>
 </body>
 </html>

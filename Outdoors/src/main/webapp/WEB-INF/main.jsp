@@ -12,24 +12,45 @@
 <meta charset="ISO-8859-1">
 <title>Welcome</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
 </head>
 <body>
+<div class="d-flex justify-content-between p-3">
 	<h1> Welcome, <c:out value="${user.firstName}" /></h1>
 	<a href="/logout">Logout</a>
-	
-<div id = "hunt">
-	<img src="<c:url value="${images/buck.img}"/>"/>
-	<p><a href="/Hunt/home">Hunting</a></p>	
 </div>
-	<table class="table table-hover">
-		<thead class="thead-dark">
-			<tr>
-				<th class = "hunt"><a href="/Hunt/home">Hunting</a></th>
-				<th><a href="/Fish/home">Fishing</a></th>
-				<th><a href="/Camp/home">Camping</a></th>
-			</tr>
-		</thead>
-	</table>
+	<div class="row align-items-center p-3">
+		<div class="col">
+			<a href="/huntHome"> <img class = "hunt" src="/images/hunt.jpg" class="rounded float-start" alt="buck"/></a>
+		</div>
+		<div class="col">
+			<a href="/fishHome"> <img class = "fish" src="/images/fish.jpg" class="rounded float-start" alt="buck"/></a>
+		</div>
+		<div class="col">
+			<a href="/camphome"> <img class = "camp" src="/images/camp.jpg" class="rounded float-start" alt="buck"/></a>
+		</div>
+	</div>
+	<h2 class="d-flex justify-content-center">Message Wall</h2>
+	<div class="d-flex justify-content-center">
+		<div class=" mh-25 w-25 p-3 overflow-scroll" style="max-height:200px;">
+            <div id="commentbox" >
+                <c:forEach items="${commentlist}" var="comment">
+                        <p>${comment.comment} posted by: ${comment.getUser().firstName} ${comment.getUser().lastName}</p>
+                    </c:forEach>
+            </div>
+		</div>
+	</div>
+	<div class="p-3 d-flex justify-content-center">
+        <form:form action="/newMessage" method="post" modelAttribute="newMessage">
+                <input type="hidden" value="${user.id}" name="user"/>
+                <input type="hidden" value="${camp.id}" name="camp"/>
+                <p>
+                    <form:label path="comment">Message: </form:label>
+                    <form:textarea path="comment"/>
 
+                </p>
+                <input type="submit" value="Post Message"/>
+            </form:form>
+     </div>
 </body>
 </html>

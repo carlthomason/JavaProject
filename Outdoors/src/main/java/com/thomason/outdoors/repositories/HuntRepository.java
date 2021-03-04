@@ -11,5 +11,5 @@ import com.thomason.outdoors.models.Hunt;
 public interface HuntRepository extends CrudRepository<Hunt, Long> {
 
 	List<Hunt> findAll();	
-	List<Hunt> findByNameContaining();
+//	List<Hunt> findByNameContaining();
 }

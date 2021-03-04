@@ -11,7 +11,7 @@ import com.thomason.outdoors.models.Camp;
 
 @Repository
 public interface CampRepository extends CrudRepository<Camp, Long>{
-    Camp findByNameContaining();
+//    Camp findByNameContaining();
     List<Camp> findAll();
 
 }

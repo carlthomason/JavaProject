@@ -10,7 +10,7 @@ import com.thomason.outdoors.models.Fish;
 @Repository
 public interface FishRepository  extends CrudRepository<Fish, Long>{
 
-	Fish findByNameContaining();
+//	Fish findByNameContaining();
 	List<Fish> findAll();
 
 }
